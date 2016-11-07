@@ -1,0 +1,23 @@
+.rootWrap{
+    height: 1rem;
+    display: block;
+}
+.root{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    height: 1rem;
+    width: 100%;
+    padding: .1rem;
+    font-size: 0.24rem;
+    color: white;
+    background: rgb(46,46,46);
+    div,img{
+        margin: 0 .1rem;
+        text-align: center;
+    }
+
+}
+
+

@@ -1,0 +1,18 @@
+.root {
+  background: #ef2538;
+  height: 0.8rem;
+  width: 100%;
+  a{
+      margin: 0 .2rem;
+      display: inline-block;
+  }
+}
+.toUser{
+    width: .45rem;
+    height: .37rem;
+}
+.toSearch{
+    width: .5rem;
+    height: .37rem;
+    background-position: -0.66rem 0;
+}
