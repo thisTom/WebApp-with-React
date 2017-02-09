@@ -62,7 +62,7 @@ module.exports = {
     // 一般依赖库放到前面，所以vendor放第一个
 
     new HtmlWebpackPlugin({
-      template:'src/index.ejs',
+      template:'src/index.html',
       // html模板的路径
       
       title: '产品模式',
@@ -95,11 +95,24 @@ module.exports = {
   ],
 
   resolve: {
+    // 实际就是自动添加后缀，默认是当成js文件来查找路径
+    // 空字符串在此是为了resolve一些在import文件时不带文件扩展名的表达式
     modulesDirectories: ['node_modules', path.join(__dirname, '../node_modules')],
-    extensions: ['', '.web.js', '.js', '.json']
+    extensions: ['', '.web.js', '.js', '.json'],
+
+    // 路径别名, 懒癌福音
+    alias:{
+			app:path.resolve(__dirname,'src/js'),
+			// 以前你可能这样引用 import { Nav } from '../../components'
+			// 现在你可以这样引用 import { Nav } from 'app/components'
+
+			style:path.resolve(__dirname,'src/styles')
+			// 以前你可能这样引用 import "../../../styles/mixins.scss"
+			// 现在你可以这样引用 import "style/mixins.scss"
+
+			// 注意：别名只能在.js文件中使用。
+    }
   },
-  // 实际就是自动添加后缀，默认是当成js文件来查找路径
-  // 空字符串在此是为了resolve一些在import文件时不带文件扩展名的表达式
 
   module: {
     loaders: [

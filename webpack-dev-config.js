@@ -22,8 +22,7 @@ export default {
   devtool: 'cheap-module-eval-source-map', // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
   noInfo: true, // set to false to see a list of every file being bundled.
   entry: [
-    // must be first entry to properly set public path
-    './src/webpack-public-path',
+    './src/webpack-public-path',  // 服务器静态资源路径配置，保证首先载入
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=true',
     path.resolve(__dirname, 'src/js/index.js')
@@ -42,7 +41,7 @@ export default {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({     // Create HTML file that includes references to bundled CSS and JS.
-      template: 'src/index.ejs',
+      template: 'src/index.html',
       title: '开发模式',
       favicon:'./src/favicon.ico',
       minify: {
@@ -57,7 +56,20 @@ export default {
   ],
   resolve: {
     modulesDirectories: ['node_modules', path.join(__dirname, '../node_modules')],
-    extensions: ['', '.web.js', '.js', '.json']
+    extensions: ['', '.web.js', '.js', '.json'],
+
+    // 路径别名, 懒癌福音
+    alias:{
+			app:path.resolve(__dirname,'src/js'),
+			// 以前你可能这样引用 import { Nav } from '../../components'
+			// 现在你可以这样引用 import { Nav } from 'app/components'
+
+			style:path.resolve(__dirname,'src/styles')
+			// 以前你可能这样引用 import "../../../styles/mixins.scss"
+			// 现在你可以这样引用 import "style/mixins.scss"
+
+			// 注意：别名只能在.js文件中使用。
+    }
   },
   module: {
     loaders: [
